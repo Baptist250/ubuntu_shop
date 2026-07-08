@@ -112,6 +112,17 @@
 
             <div class="form-grid">
 
+                <div style="grid-column: span 2;">
+                    <label style="display:block;margin-bottom:6px;color:#9ca3af;font-size:13px;">Select existing product</label>
+                    <select id="existing_product_id" name="existing_product_id" class="form-input">
+                        <option value="" {{ old('existing_product_id') ? '' : 'selected' }}>Create new product</option>
+                        @foreach($products as $existing)
+                            <option value="{{ $existing->id }}" {{ old('existing_product_id') == $existing->id ? 'selected' : '' }} data-name="{{ $existing->name }}" data-brand="{{ $existing->brand }}" data-buying_price="{{ $existing->buying_price }}" data-selling_price="{{ $existing->selling_price }}" data-quantity="{{ $existing->quantity }}" data-description="{{ $existing->description }}">{{ $existing->name }} - {{ $existing->brand }}</option>
+                        @endforeach
+                    </select>
+                    <p style="margin-top:10px;color:#9ca3af;font-size:13px;line-height:1.4;">Choose an existing product to load its current values. Saving will update the selected product instead of creating a duplicate.</p>
+                </div>
+
                 <input type="text" name="name" placeholder="Product Name"
                     class="form-input" value="{{ old('name') }}">
 
@@ -127,13 +138,13 @@
                 <input type="number" name="quantity" placeholder="Quantity"
                     class="form-input" value="{{ old('quantity') }}">
 
+                <input type="file" name="image" id="imageInput" class="form-input" style="padding-top: 9px;">
+
                 <!-- FIX: description was missing -->
                 <textarea name="description"
                     placeholder="Product Description"
                     class="form-input"
                     style="grid-column: span 2; height: 90px;">{{ old('description') }}</textarea>
-
-                <input type="file" name="image" id="imageInput" class="form-input">
 
             </div>
 
@@ -186,6 +197,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (buying) buying.addEventListener("blur", () => format(buying));
     if (selling) selling.addEventListener("blur", () => format(selling));
+
+    const existingSelect = document.getElementById('existing_product_id');
+    if (existingSelect) {
+        existingSelect.addEventListener('change', function () {
+            const selected = this.selectedOptions[0];
+            const nameField = document.querySelector('input[name="name"]');
+            const brandField = document.querySelector('input[name="brand"]');
+            const buyingField = document.querySelector('input[name="buying_price"]');
+            const sellingField = document.querySelector('input[name="selling_price"]');
+            const quantityField = document.querySelector('input[name="quantity"]');
+            const descriptionField = document.querySelector('textarea[name="description"]');
+
+            if (!selected || !selected.value) {
+                nameField.value = '';
+                brandField.value = '';
+                buyingField.value = '';
+                sellingField.value = '';
+                quantityField.value = '';
+                descriptionField.value = '';
+                return;
+            }
+
+            nameField.value = selected.dataset.name || '';
+            brandField.value = selected.dataset.brand || '';
+            buyingField.value = selected.dataset.buying_price || '';
+            sellingField.value = selected.dataset.selling_price || '';
+            quantityField.value = selected.dataset.quantity || '';
+            descriptionField.value = selected.dataset.description || '';
+        });
+
+        if (existingSelect.value) {
+            existingSelect.dispatchEvent(new Event('change'));
+        }
+    }
 
     document.getElementById("productForm").addEventListener("submit", function () {
         if (buying) buying.value = cleanNumber(buying.value);

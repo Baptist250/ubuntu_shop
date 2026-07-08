@@ -92,10 +92,39 @@
         margin-top: 10px;
         font-weight: 600;
     }
+
+    .customer-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+
+    .customer-row textarea {
+        grid-column: span 2;
+        resize: vertical;
+    }
+
+    .pos-input {
+        width: 100%;
+        background: #111827;
+        border: 1px solid #374151;
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    .pos-input:focus {
+        border-color: #22c55e;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+    }
+
     .disabled-product {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
 
     .total-box {
         margin-top: 10px;
@@ -160,14 +189,36 @@
         <div id="total" class="total-box">Total: 0 RWF</div>
 
         <form method="POST" action="/admin/pos/checkout" onsubmit="return prepareCart()">
-    @csrf
+            @csrf
 
-    <input type="hidden" name="cart" id="cartInput">
+            <div class="customer-row">
+                <div>
+                    <label style="display:block;margin-bottom:6px;color:#9ca3af;font-size:14px;">Customer Name</label>
+                    <input type="text" name="customer_name" class="pos-input" placeholder="Required" required>
+                </div>
 
-    <button type="submit" class="btn-checkout">
-        Checkout
-    </button>
-</form>
+                <div>
+                    <label style="display:block;margin-bottom:6px;color:#9ca3af;font-size:14px;">Phone</label>
+                    <input type="text" name="customer_phone" class="pos-input" placeholder="Optional">
+                </div>
+
+                <div>
+                    <label style="display:block;margin-bottom:6px;color:#9ca3af;font-size:14px;">Email</label>
+                    <input type="email" name="customer_email" class="pos-input" placeholder="Optional">
+                </div>
+
+                <div>
+                    <label style="display:block;margin-bottom:6px;color:#9ca3af;font-size:14px;">Address</label>
+                    <textarea name="customer_address" class="pos-input" placeholder="Optional" style="height:70px;"></textarea>
+                </div>
+            </div>
+
+            <input type="hidden" name="cart" id="cartInput">
+
+            <button type="submit" class="btn-checkout">
+                Checkout
+            </button>
+        </form>
     </div>
 
 </div>

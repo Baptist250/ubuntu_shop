@@ -19,6 +19,14 @@ class POSController extends Controller
 
    public function checkout(Request $request)
 {
+    $request->validate([
+        'cart' => 'required|string',
+        'customer_name' => 'required|string|max:255',
+        'customer_phone' => 'nullable|string|max:100',
+        'customer_email' => 'nullable|email|max:255',
+        'customer_address' => 'nullable|string|max:500',
+    ]);
+
     $cart = json_decode($request->cart, true);
 
     if (!$cart || count($cart) === 0) {
@@ -47,6 +55,10 @@ class POSController extends Controller
 
         $sale = Sale::create([
             'total_amount' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
+            'customer_name' => $request->input('customer_name'),
+            'customer_phone' => $request->input('customer_phone'),
+            'customer_email' => $request->input('customer_email'),
+            'customer_address' => $request->input('customer_address'),
         ]);
 
         // Create SaleItem records for each item in cart

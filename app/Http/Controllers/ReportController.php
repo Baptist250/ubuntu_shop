@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\SaleItem;
+use App\Models\InventoryChange;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf; 
 
@@ -59,20 +60,27 @@ class ReportController extends Controller
 
     // FILTERED REPORT
     public function filtered(Request $request)
-{
-    $query = Sale::with('items.product');
+    {
+        $query = Sale::with('items.product', 'cashier');
+        $inventoryQuery = InventoryChange::with('product', 'user');
 
-    if ($request->filled('from') && $request->filled('to')) {
-        $query->whereBetween('created_at', [
-            $request->from . ' 00:00:00',
-            $request->to . ' 23:59:59'
-        ]);
+        if ($request->filled('from') && $request->filled('to')) {
+            $query->whereBetween('created_at', [
+                $request->from . ' 00:00:00',
+                $request->to . ' 23:59:59'
+            ]);
+
+            $inventoryQuery->whereBetween('created_at', [
+                $request->from . ' 00:00:00',
+                $request->to . ' 23:59:59'
+            ]);
+        }
+
+        $sales = $query->latest()->get();
+        $inventoryChanges = $inventoryQuery->latest()->get();
+
+        return view('admin.reports.filtered', compact('sales', 'inventoryChanges'));
     }
-
-    $sales = $query->latest()->get();
-
-    return view('admin.reports.filtered', compact('sales'));
-}
 
     // PROFIT CALCULATION
     public function profit(Request $request)
@@ -113,35 +121,42 @@ class ReportController extends Controller
         return view('admin.reports.top-products', compact('products'));
     }
     public function daily()
-{
-    $sales = Sale::whereDate('created_at', today())
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-    $total = $sales->sum('total_amount'); // <-- THIS fixes your error
-
-    $count = $sales->count();
-
-    return view('admin.reports.daily', compact(
-        'sales',
-        'total',
-        'count'
-    ));
-}
-
-    public function exportDailyPdf()
     {
-        $sales = Sale::whereDate('created_at', today())
+        $sales = Sale::with('items.product', 'cashier')->whereDate('created_at', today())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $inventoryChanges = InventoryChange::with('product', 'user')
+            ->whereDate('created_at', today())
             ->orderBy('created_at', 'desc')
             ->get();
 
         $total = $sales->sum('total_amount');
-        $count = $sales->count();
+
+        return view('admin.reports.daily', compact(
+            'sales',
+            'inventoryChanges',
+            'total'
+        ));
+    }
+
+    public function exportDailyPdf()
+    {
+        $sales = Sale::with('items.product', 'cashier')->whereDate('created_at', today())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $inventoryChanges = InventoryChange::with('product', 'user')
+            ->whereDate('created_at', today())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $total = $sales->sum('total_amount');
 
         $pdf = \PDF::loadView('admin.reports.daily-pdf', compact(
             'sales',
-            'total',
-            'count'
+            'inventoryChanges',
+            'total'
         ));
 
         return $pdf->download('daily_report_' . Carbon::today()->toDateString() . '.pdf');

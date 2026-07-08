@@ -26,6 +26,7 @@ class DashboardController extends Controller
                                 ->whereYear('created_at', now()->year);
 
         $monthlyRevenue = (clone $monthlySalesQuery)->sum('total_amount');
+        $monthlySalesCount = (clone $monthlySalesQuery)->count();
 
         // =========================
         // TOTAL SALES
@@ -44,9 +45,30 @@ class DashboardController extends Controller
         $totalProducts = Product::count();
 
         // =========================
+        // CUSTOMER METRICS
+        // =========================
+        $totalCustomers = Sale::whereNotNull('customer_name')
+            ->where('customer_name', '!=', '')
+            ->distinct('customer_name')
+            ->count('customer_name');
+
+        $bestCustomer = Sale::select(
+                'customer_name',
+                'customer_email',
+                DB::raw('SUM(total_amount) as total_spent'),
+                DB::raw('COUNT(*) as orders_count')
+            )
+            ->whereNotNull('customer_name')
+            ->where('customer_name', '!=', '')
+            ->groupBy('customer_name', 'customer_email')
+            ->orderByDesc('total_spent')
+            ->first();
+
+        // =========================
         // RECENT SALES (SAFE ORDER)
         // =========================
-        $recentSales = Sale::orderBy('created_at', 'desc')
+        $recentSales = Sale::with('items.product')
+                          ->orderBy('created_at', 'desc')
                           ->take(5)
                           ->get();
 
@@ -67,10 +89,13 @@ class DashboardController extends Controller
             'todayRevenue',
             'todaySalesCount',
             'monthlyRevenue',
+            'monthlySalesCount',
             'totalSales',
             'lowStockProducts',
             'lowStockCount',
             'totalProducts',
+            'totalCustomers',
+            'bestCustomer',
             'recentSales',
             'topProducts'
         ));

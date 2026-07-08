@@ -17,12 +17,14 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.products.create');
+        $products = Product::orderBy('name')->get();
+        return view('admin.products.create', compact('products'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'existing_product_id' => 'nullable|exists:products,id',
             'name' => 'required|string|max:255',
             'brand' => 'nullable|string|max:255',
             'buying_price' => 'required|numeric',
@@ -38,10 +40,33 @@ class ProductController extends Controller
                 ->store('products', 'public');
         }
 
+        if ($request->filled('existing_product_id')) {
+            $product = Product::findOrFail($request->existing_product_id);
+            $product->name = $request->name;
+            $product->brand = $request->brand;
+            $product->description = $request->description;
+            $product->buying_price = str_replace(',', '', $request->buying_price);
+            $product->selling_price = str_replace(',', '', $request->selling_price);
+            $product->quantity = $request->quantity;
+
+            if ($request->hasFile('image')) {
+                if ($product->image && Storage::disk('public')->exists($product->image)) {
+                    Storage::disk('public')->delete($product->image);
+                }
+                $product->image = $request->file('image')->store('products', 'public');
+            }
+
+            $product->save();
+
+            return redirect()
+                ->route('products.index')
+                ->with('success', 'Existing product updated successfully.');
+        }
+
         Product::create([
             'name' => $request->name,
             'brand' => $request->brand,
-            'description' => $request->description, // nullable
+            'description' => $request->description,
             'buying_price' => str_replace(',', '', $request->buying_price),
             'selling_price' => str_replace(',', '', $request->selling_price),
             'quantity' => $request->quantity,

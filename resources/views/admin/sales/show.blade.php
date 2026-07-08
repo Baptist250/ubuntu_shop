@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Invoice {{ $sale->invoice_number }}</title>
+    <title>Invoice {{ $sale->invoice_number ?? "#{$sale->id}" }}</title>
 
     <style>
         body {
@@ -13,7 +13,7 @@
         }
 
         .receipt {
-            max-width: 380px;
+            max-width: 400px;
             margin: auto;
         }
 
@@ -41,9 +41,18 @@
             color: #444;
         }
 
-        .meta {
+        .meta,
+        .customer {
             font-size: 11px;
             margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 6px;
         }
 
         table {
@@ -104,7 +113,7 @@
     <div class="header">
 
         <!-- LOGO (put in public/images/logo.png) -->
-        <img src="{{ asset('images/logo.jpg') }}" class="logo">
+        <img src="{{ asset('images/logo.png') }}" class="logo">
 
         <div class="store-name">UBUNTU SHOP</div>
         <div class="tagline">Trusted Electronics & Appliances Store</div>
@@ -112,9 +121,19 @@
 
     <!-- META -->
     <div class="meta">
-        <div><strong>Invoice:</strong> {{ $sale->invoice_number }}</div>
-        <div><strong>Date:</strong> {{ $sale->created_at->format('d M Y H:i') }}</div>
+        <div><strong>Invoice:</strong> {{ $sale->invoice_number ?? "#{$sale->id}" }}</div>
+        <div><strong>Sale ID:</strong> {{ $sale->id }}</div>
+        <div><strong>Date:</strong> {{ $sale->created_at->timezone(config('app.timezone'))->format('d M Y H:i') }}</div>
         <div><strong>Cashier:</strong> {{ $sale->cashier->name ?? 'Admin' }}</div>
+        <div><strong>Payment:</strong> Cash</div>
+    </div>
+
+    <div class="customer">
+        <div class="section-title">Customer Details</div>
+        <div><strong>Name:</strong> {{ $sale->customer_name ?? 'Walk-in Customer' }}</div>
+        <div><strong>Phone:</strong> {{ $sale->customer_phone ?? 'N/A' }}</div>
+        <div><strong>Email:</strong> {{ $sale->customer_email ?? 'N/A' }}</div>
+        <div><strong>Address:</strong> {{ $sale->customer_address ?? 'N/A' }}</div>
     </div>
 
     <!-- ITEMS -->
@@ -138,9 +157,12 @@
             @endphp
 
             <tr>
-                <td>{{ optional($item->product)->name }}</td>
+                <td>
+                    {{ optional($item->product)->name }}
+                    <span class="item-subtext">Unit: {{ number_format($item->price) }} RWF</span>
+                </td>
                 <td>{{ $item->quantity }}</td>
-                <td>{{ number_format($line) }}</td>
+                <td>{{ number_format($line) }} RWF</td>
             </tr>
 
         @endforeach

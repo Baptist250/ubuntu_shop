@@ -63,7 +63,7 @@
                 <tr>
                     <td>#{{ $sale->id }}</td>
                     <td>{{ $sale->total_amount }} RWF</td>
-                    <td>{{ $sale->created_at }}</td>
+                    <td>{{ $sale->created_at->timezone(config('app.timezone'))->format('d M Y H:i') }}</td>
                     <td>
                         <a href="/admin/sales/{{ $sale->id }}" class="btn-view">
                             View

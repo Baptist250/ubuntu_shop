@@ -174,12 +174,13 @@
             <a href="/admin/reports" class="btn-back">
                 ← Back
             </a>
-            <h2 class="report-title">
-                Sales Report
-            </h2>
-
-            <div class="report-subtitle">
-                Filter sales by date range
+            <div>
+                <h2 class="report-title">
+                    Filtered Audit Report
+                </h2>
+                <div class="report-subtitle">
+                    Filter sales and inventory actions by date range
+                </div>
             </div>
         </div>
 
@@ -269,6 +270,42 @@
 
         </table>
 
+    </div>
+
+    <div class="summary-card" style="margin-bottom: 8px;">
+        <div class="summary-label">Inventory Actions</div>
+        <div class="summary-value">{{ number_format($inventoryChanges->count()) }}</div>
+    </div>
+
+    <div class="table-wrapper">
+        @if($inventoryChanges->isEmpty())
+            <div class="empty-row">No inventory actions found for the selected period.</div>
+        @else
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Change</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>By</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($inventoryChanges as $change)
+                        <tr>
+                            <td>{{ optional($change->product)->name ?? 'Deleted Product' }}</td>
+                            <td>{{ $change->type_label }} ({{ $change->change }})</td>
+                            <td>{{ $change->old_quantity }}</td>
+                            <td>{{ $change->new_quantity }}</td>
+                            <td>{{ optional($change->user)->name ?? 'System' }}</td>
+                            <td>{{ $change->created_at->format('d M Y H:i') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
 
 </div>

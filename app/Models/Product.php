@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\InventoryChange;
 
 class Product extends Model
 {
@@ -27,5 +30,32 @@ public function saleItems()
 {
     return $this->hasMany(SaleItem::class);
 }
+
+    public function inventoryChanges()
+    {
+        return $this->hasMany(InventoryChange::class);
+    }
+
+    protected static function booted()
+    {
+        static::updating(function ($product) {
+            if ($product->isDirty('quantity')) {
+                $original = $product->getOriginal('quantity');
+                $new = $product->quantity;
+                $change = $new - $original;
+                $type = $change > 0 ? 'increase' : ($change < 0 ? 'sold' : 'none');
+
+                InventoryChange::create([
+                    'product_id' => $product->id,
+                    'user_id' => Auth::id(),
+                    'old_quantity' => $original,
+                    'new_quantity' => $new,
+                    'change' => $change,
+                    'type' => $type,
+                    'note' => null,
+                ]);
+            }
+        });
+    }
 
 }

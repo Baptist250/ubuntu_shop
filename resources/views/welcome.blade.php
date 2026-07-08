@@ -5,6 +5,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
 
         html,
@@ -20,11 +22,24 @@
             box-sizing: border-box;
         }
 
+        :root{
+            --bg: #0f1724;
+            --surface: #0b1220;
+            --muted: #9ca3af;
+            --accent: #22c55e;
+            --accent-contrast: #000;
+            --card: #0f1724;
+            --border: #1f2937;
+            --glass: rgba(255,255,255,0.03);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #0f0f0f;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: var(--bg);
             color: #e5e7eb;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .page-wrapper {
@@ -42,9 +57,14 @@
 
         /* HEADER */
         .header {
-            background: linear-gradient(180deg, #0b0f19 0%, #111827 100%);
-            padding: 24px 20px 16px;
-            border-bottom: 1px solid #1f2937;
+            background: linear-gradient(180deg, var(--surface) 0%, #0b1220 100%);
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 80;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 18px rgba(2,6,23,0.6);
         }
 
         .header-content {
@@ -94,21 +114,131 @@
             margin-top: 4px;
         }
 
+        /* NAV */
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: #e5e7eb;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: transparent;
+            font-weight: 600;
+            transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: rgba(34,197,94,0.12);
+            color: #22c55e;
+            transform: translateY(-1px);
+        }
+
+        .nav-menu { align-items: center; }
+        .nav-menu a { text-transform: uppercase; font-size:13px; letter-spacing:0.6px; color:var(--muted); padding:10px 14px; }
+        .nav-menu a.active, .nav-menu a:hover { color:var(--accent); background:transparent; transform:none; }
+
+        .nav-separator { width:1px; height:28px; background:var(--border); margin:0 8px; }
+
+        .actions { display:flex; gap:10px; align-items:center; }
+        .user-dropdown { position:absolute; right:0; top:44px; background:var(--card); border:1px solid var(--border); border-radius:10px; min-width:180px; padding:8px; display:none; box-shadow:0 10px 30px rgba(2,6,23,0.6); }
+        .user-dropdown.open { display:block; }
+        .user-dropdown a { display:block; padding:8px 10px; color:var(--muted); text-decoration:none; }
+
+        .cta { padding:8px 14px; border-radius:10px; font-weight:700; text-decoration:none; }
+        .cta-primary { background:var(--accent); color:var(--accent-contrast); }
+        .cta-secondary { border:1px solid var(--border); color:var(--muted); background:transparent; }
+
+        .btn-primary {
+            background: #22c55e;
+            color: #000;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* animated hamburger */
+        .nav-toggle {
+            display: none;
+            width: 44px;
+            height: 36px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+        }
+
+        .hamburger {
+            width: 22px;
+            height: 16px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .hamburger span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e5e7eb;
+            display: block;
+            transition: transform 250ms cubic-bezier(.2,.9,.3,1), opacity 180ms ease, top 250ms cubic-bezier(.2,.9,.3,1);
+            border-radius: 2px;
+        }
+
+        .hamburger span:nth-child(1){ top: 0; }
+        .hamburger span:nth-child(2){ top: 7px; }
+        .hamburger span:nth-child(3){ top: 14px; }
+
+        .nav-toggle.open .hamburger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open .hamburger span:nth-child(2){ opacity: 0; }
+        .nav-toggle.open .hamburger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: inline-flex; }
+            .nav-menu { display: none; width: 100%; gap: 8px; }
+            .nav-menu.open { display: flex; flex-direction: column; }
+            .header-content { align-items: flex-start; }
+            .hero { width: 100%; margin-top: 12px; }
+            .brand { gap: 10px; }
+        }
+
         /* HERO */
         .hero {
             flex: 1 1 360px;
             min-width: 280px;
-            text-align: center;
-            padding: 35px 24px;
-            background: rgba(15, 23, 42, 0.9);
-            border-radius: 22px;
-            border: 1px solid #1f2937;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+            display:flex;
+            gap:20px;
+            align-items:center;
+            justify-content:space-between;
+            text-align: left;
+            padding: 36px 28px;
+            background: linear-gradient(90deg, rgba(12,14,22,0.6), rgba(8,10,16,0.6));
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
         }
 
         .hero h2 {
             margin: 0;
-            font-size: 28px;
+            font-size: 30px;
+            font-weight:800;
             line-height: 1.15;
         }
 
@@ -116,6 +246,11 @@
             color: #9ca3af;
             margin-top: 8px;
         }
+
+        .hero-content { max-width: 720px; }
+        .hero-illustration { width:220px; height:140px; border-radius:12px; background:linear-gradient(135deg,var(--glass), rgba(255,255,255,0.02)); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); font-weight:600; }
+
+        .hero-actions { display:flex; gap:12px; margin-top:16px; }
 
         /* SEARCH */
         .search-box {
@@ -425,23 +560,52 @@
             </div>
         </div>
 
-        <!-- HERO -->
-        <div class="hero">
-            <h2>Find the best electronics in one place</h2>
-            <p>Affordable prices • Trusted quality • Fast access</p>
-        </div>
+        <!-- NAV -->
+        <nav class="nav-wrapper" aria-label="Main navigation">
+            <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">
+                <span class="hamburger" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </button>
+            <div id="main-nav" class="nav-menu" role="menubar">
+                <a href="/" role="menuitem">Home</a>
+                <a href="/#about" role="menuitem">About</a>
+                <a href="/#contact" role="menuitem">Contact</a>
+                <div class="nav-separator" aria-hidden="true"></div>
+                <div class="actions">
+                @auth
+                    <div class="user-menu" style="position:relative;">
+                        <button id="user-toggle" class="btn-primary" aria-expanded="false">{{ auth()->user()->name ?? 'Account' }}</button>
+                        <div id="user-dropdown" class="user-dropdown" aria-hidden="true">
+                            <a href="/profile">Profile</a>
+                            <a href="/admin">Admin</a>
+                            <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                                @csrf
+                                <button type="submit" class="cta cta-primary" style="width:100%; margin-top:6px;">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="/login" class="cta cta-primary" role="menuitem"></a>
+                    <a href="/" class="cta cta-secondary" role="menuitem">Browse</a>
+                @endauth
+                </div>
+            </div>
+        </nav>
     </div>
 </div>
 
 <!-- SEARCH -->
 <div class="search-box">
-    <form id="search-form" method="GET" action="/">
-        <input id="search-input" type="search"
-               name="search"
-               placeholder="Search products by name or brand"
-               value="{{ request('search') }}">
-
-        <button id="search-button" type="submit">Search</button>
+    <form id="search-form" method="GET" action="/" style="max-width:820px; margin:0 auto;">
+        <div class="search-input-wrapper" style="display:flex; gap:8px; align-items:center; background:var(--card); padding:8px; border-radius:999px; border:1px solid var(--border); box-shadow:0 6px 18px rgba(2,6,23,0.45);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0; opacity:0.9;" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input id="search-input" type="search" name="search" placeholder="Search products by name or brand" value="{{ request('search') }}" style="flex:1; background:transparent; border:none; outline:none; color:inherit; padding:8px 6px; font-size:15px;">
+            <button id="clear-search" type="button" aria-label="Clear search" style="display:none; background:transparent; border:none; color:var(--muted); cursor:pointer;">✕</button>
+            <button id="search-button" type="submit" style="background:var(--accent); color:var(--accent-contrast); padding:8px 12px; border-radius:8px; border:none; font-weight:700;">Search</button>
+        </div>
     </form>
 </div>
 
@@ -528,7 +692,7 @@
     <div class="footer-grid">
 
         <!-- ABOUT -->
-        <div>
+        <div id="about">
             <h3>About Us</h3>
             <p>
                 Ubuntu Shop provides quality electronics with warranty,
@@ -537,7 +701,7 @@
         </div>
 
         <!-- CONTACT -->
-        <div>
+        <div id="contact">
             <h3>Contact</h3>
 
             <p>
@@ -618,23 +782,81 @@
             previousSearchValue = searchInput.value;
         }
 
+        const clearBtn = document.getElementById('clear-search');
+        function toggleClear() {
+            if (!searchInput || !clearBtn) return;
+            clearBtn.style.display = searchInput.value.trim() === '' ? 'none' : 'inline-block';
+        }
+
         if (searchInput) {
             searchInput.addEventListener('input', function () {
                 updateButtonState();
                 submitIfCleared();
+                toggleClear();
             });
             searchInput.addEventListener('search', function () {
                 updateButtonState();
                 submitIfCleared();
+                toggleClear();
             });
-            searchInput.addEventListener('keyup', updateButtonState);
-            setTimeout(updateButtonState, 0);
+            searchInput.addEventListener('keyup', function () { updateButtonState(); toggleClear(); });
+            setTimeout(function(){ updateButtonState(); toggleClear(); }, 0);
+        }
+
+        if (clearBtn && searchInput) {
+            clearBtn.addEventListener('click', function (){ searchInput.value = ''; updateButtonState(); toggleClear(); searchInput.focus(); });
         }
 
         if (searchForm) {
             searchForm.addEventListener('submit', function () {
                 if (searchInput && searchInput.value.trim() === '') {
                     searchInput.value = '';
+                }
+            });
+        }
+
+        // NAV TOGGLE (animated hamburger + responsive menu)
+        const navToggle = document.getElementById('nav-toggle');
+        const mainNav = document.getElementById('main-nav');
+        if (navToggle && mainNav) {
+            navToggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', String(!expanded));
+                navToggle.classList.toggle('open');
+                mainNav.classList.toggle('open');
+            });
+
+            // highlight current link when possible
+            const links = mainNav.querySelectorAll('a[role="menuitem"]');
+            links.forEach(function (a) {
+                try {
+                    const href = a.getAttribute('href');
+                    if (href === window.location.pathname || href === window.location.pathname + window.location.search || (href === '/' && window.location.pathname === '/')) {
+                        a.classList.add('active');
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            });
+        }
+
+        // USER DROPDOWN
+        const userToggle = document.getElementById('user-toggle');
+        const userDropdown = document.getElementById('user-dropdown');
+        if (userToggle && userDropdown) {
+            userToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const expanded = userToggle.getAttribute('aria-expanded') === 'true';
+                userToggle.setAttribute('aria-expanded', String(!expanded));
+                userDropdown.classList.toggle('open');
+            });
+
+            // close dropdown when clicking outside
+            document.addEventListener('click', function (ev) {
+                if (!userDropdown.contains(ev.target) && ev.target !== userToggle) {
+                    userDropdown.classList.remove('open');
+                    userToggle.setAttribute('aria-expanded', 'false');
                 }
             });
         }

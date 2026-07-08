@@ -7,9 +7,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-
     <style>
 
         *{
@@ -29,30 +26,85 @@
 
         .top-header{
             background:#0f0f0f;
-            border-bottom:1px solid #1e293b;
-            padding:15px 25px;
+            border-bottom:1px solid rgba(148,163,184,.12);
+            padding:16px 24px;
             position:sticky;
             top:0;
             z-index:1000;
         }
 
         .logo-img{
-            width:45px;
-            height:45px;
-            border-radius:10px;
+            width:48px;
+            height:48px;
+            border-radius:14px;
             object-fit:cover;
+            border:1px solid rgba(255,255,255,.08);
         }
 
         .brand-title{
-            font-size:22px;
-            font-weight:700;
+            font-size:24px;
+            font-weight:800;
             margin:0;
-            color:#fff;
+            color:#f8fafc;
         }
 
         .brand-sub{
             color:#94a3b8;
             font-size:13px;
+            margin-top:4px;
+        }
+
+        .top-header-right{
+            display:flex;
+            align-items:center;
+            gap:16px;
+            flex-wrap:wrap;
+        }
+
+        .user-card{
+            background:#111827;
+            border:1px solid rgba(148,163,184,.15);
+            border-radius:14px;
+            padding:10px 14px;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .user-avatar{
+            width:44px;
+            height:44px;
+            border-radius:50%;
+            background:#0f172a;
+            color:#22c55e;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            font-size:16px;
+        }
+
+        .user-meta{
+            display:flex;
+            flex-direction:column;
+            gap:2px;
+        }
+
+        .user-name{
+            color:#f8fafc;
+            font-weight:700;
+            font-size:14px;
+        }
+
+        .profile-link{
+            color:#cbd5e1;
+            font-size:13px;
+            text-decoration:none;
+        }
+
+        .profile-link:hover{
+            color:#22c55e;
+            text-decoration:none;
         }
 
         /* SEARCH */
@@ -156,51 +208,45 @@
 
 <!-- HEADER -->
 <div class="top-header">
-
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-
         <div class="d-flex align-items-center gap-3">
-
             <img src="{{ asset('images/logo.PNG') }}"
                  class="logo-img"
                  alt="Ubuntu Shop">
 
             <div>
-                <h4 class="brand-title">
-                    Ubuntu Shop
-                </h4>
-
-                <div class="brand-sub">
-                    Electronics & Inventory Management System
-                </div>
+                <h4 class="brand-title">Ubuntu Shop</h4>
+                <div class="brand-sub">Modern Electronics & Inventory Management</div>
             </div>
-
         </div>
 
-        <div class="d-flex align-items-center gap-3 flex-wrap">
-
+        <div class="top-header-right">
             <input type="text"
                    class="form-control search-box"
                    placeholder="Search products...">
 
-            <span class="admin-badge">
-                <i class="fa-solid fa-user-shield"></i>
-                Admin
-            </span>
+            <div class="user-card">
+                @if(auth()->user()->profile_photo_url)
+                    <img src="{{ auth()->user()->profile_photo_url }}" alt="Avatar" class="user-avatar" />
+                @else
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                    </div>
+                @endif
+                <div class="user-meta">
+                    <span class="user-name">{{ auth()->user()->name ?? 'Admin' }}</span>
+                    <a href="{{ route('profile.edit') }}" class="profile-link">Account Settings</a>
+                </div>
+            </div>
 
             <form method="POST" action="/logout">
                 @csrf
-
                 <button class="btn btn-outline-danger logout-btn">
-                    <i class="fa-solid fa-right-from-bracket"></i>
                     Logout
                 </button>
             </form>
-
         </div>
-
     </div>
-
 </div>
 
 <!-- NAVIGATION -->
@@ -208,37 +254,31 @@
 
     <a href="/admin"
        class="menu-link {{ request()->is('admin') ? 'menu-active' : '' }}">
-        <i class="fa-solid fa-chart-line"></i>
         Dashboard
     </a>
 
     <a href="/admin/pos"
        class="menu-link {{ request()->is('admin/pos*') ? 'menu-active' : '' }}">
-        <i class="fa-solid fa-cash-register"></i>
         POS
     </a>
 
     <a href="/admin/products"
        class="menu-link {{ request()->is('admin/products*') ? 'menu-active' : '' }}">
-        <i class="fa-solid fa-box"></i>
         Products
     </a>
 
     <a href="/admin/inventory"
        class="menu-link {{ request()->is('admin/inventory*') ? 'menu-active' : '' }}">
-        <i class="fa-solid fa-warehouse"></i>
         Inventory
     </a>
 
     <a href="/admin/sales"
        class="menu-link {{ request()->is('admin/sales*') ? 'menu-active' : '' }}">
-        <i class="fa-solid fa-cart-shopping"></i>
         Sales
     </a>
 
     <a href="/admin/reports"
        class="menu-link {{ request()->is('admin/reports*') ? 'menu-active' : '' }}">
-        <i class="fa-solid fa-file-lines"></i>
         Reports
     </a>
 
@@ -248,6 +288,8 @@
 <div class="page-content">
     @yield('content')
 </div>
+
+@stack('scripts')
 
 </body>
 </html>

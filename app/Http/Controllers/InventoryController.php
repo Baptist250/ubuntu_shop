@@ -39,4 +39,15 @@ class InventoryController extends Controller
             "Stock updated: {$product->name} ({$oldQty} → {$request->quantity})"
         );
     }
+
+    // return paginated inventory change history as JSON for modal
+    public function history(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $perPage = max(5, (int) $request->get('per_page', 8));
+
+        $changes = $product->inventoryChanges()->with('user')->orderBy('created_at', 'desc')->paginate($perPage);
+
+        return response()->json($changes);
+    }
 }

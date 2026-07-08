@@ -104,7 +104,7 @@
     <div class="header">
 
         <!-- LOGO (put in public/images/logo.png) -->
-        <img src="{{ asset('images/logo.jpg') }}" class="logo">
+        <img src="{{ asset('images/logo.png') }}" class="logo">
 
         <div class="store-name">UBUNTU SHOP</div>
         <div class="tagline">Trusted Electronics & Appliances Store</div>
@@ -113,7 +113,7 @@
     <!-- META -->
     <div class="meta">
         <div><strong>Invoice:</strong> {{ $sale->invoice_number }}</div>
-        <div><strong>Date:</strong> {{ $sale->created_at->format('d M Y H:i') }}</div>
+        <div><strong>Date:</strong> {{ $sale->created_at->timezone(config('app.timezone'))->format('d M Y H:i') }}</div>
         <div><strong>Cashier:</strong> {{ $sale->cashier->name ?? 'Admin' }}</div>
     </div>
 
