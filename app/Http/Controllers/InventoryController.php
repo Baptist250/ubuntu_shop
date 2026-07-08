@@ -27,13 +27,9 @@ class InventoryController extends Controller
         $product->quantity = $request->quantity;
         $product->save();
 
-        // THIS IS YOUR "LEDGER ENTRY POINT"
-        // later you can add:
-        // InventoryLog::create([
-        //     'product_id' => $product->id,
-        //     'old_qty' => $oldQty,
-        //     'new_qty' => $request->quantity,
-        // ]);
+        // NOTE:
+        // Inventory ledger rows are created by Product model observer (see Product::booted())
+        // so we only update the quantity here.
 
         return back()->with('success',
             "Stock updated: {$product->name} ({$oldQty} → {$request->quantity})"

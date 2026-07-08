@@ -45,15 +45,19 @@ public function saleItems()
                 $change = $new - $original;
                 $type = $change > 0 ? 'increase' : ($change < 0 ? 'sold' : 'none');
 
-                InventoryChange::create([
-                    'product_id' => $product->id,
-                    'user_id' => Auth::id(),
-                    'old_quantity' => $original,
-                    'new_quantity' => $new,
-                    'change' => $change,
-                    'type' => $type,
-                    'note' => null,
-                ]);
+                // only record real changes
+                if ($type !== 'none' && $change !== 0) {
+                    InventoryChange::create([
+                        'product_id' => $product->id,
+                        'user_id' => Auth::id(),
+                        'old_quantity' => $original,
+                        'new_quantity' => $new,
+                        // store absolute quantity moved for reporting clarity
+                        'change' => abs($change),
+                        'type' => $type,
+                        'note' => $type === 'increase' ? 'Stock in' : 'Stock out',
+                    ]);
+                }
             }
         });
     }
