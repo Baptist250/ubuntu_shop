@@ -38,7 +38,6 @@ class POSController extends Controller
     try {
 
         foreach ($cart as $item) {
-
             $product = Product::find($item['id']);
 
             if (!$product) {
@@ -49,8 +48,22 @@ class POSController extends Controller
                 throw new \Exception("Insufficient stock for {$product->name}");
             }
 
-            $product->quantity -= $item['qty'];
+            // Record OUT movement in inventory ledger
+            $oldQty = (int) $product->quantity;
+            $newQty = (int) ($product->quantity - $item['qty']);
+
+            $product->quantity = $newQty;
             $product->save();
+
+            \App\Models\InventoryChange::create([
+                'product_id' => $product->id,
+                'user_id' => $request->user()?->id,
+                'old_quantity' => $oldQty,
+                'new_quantity' => $newQty,
+                'change' => $item['qty'],
+                'type' => 'sold',
+                'note' => 'POS checkout',
+            ]);
         }
 
         $sale = Sale::create([
@@ -70,6 +83,9 @@ class POSController extends Controller
                 'price' => $item['price'],
             ]);
         }
+
+        // NOTE: Inventory OUT ledger rows are already created above per product item.
+
 
         DB::commit();
 
