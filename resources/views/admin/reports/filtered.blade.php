@@ -297,6 +297,8 @@
                         <tr>
                             <td>{{ optional($change->product)->name ?? 'Deleted Product' }}</td>
                             <td>{{ $change->type_label }}</td>
+                            <td>{{ $change->old_quantity }}</td>
+                            <td>{{ $change->new_quantity }}</td>
                             <td>{{ optional($change->user)->name ?? 'System' }}</td>
                             <td>{{ $change->created_at->format('d M Y H:i') }}</td>
                         </tr>

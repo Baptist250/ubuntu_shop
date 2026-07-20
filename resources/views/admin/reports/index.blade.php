@@ -203,49 +203,126 @@
     </div>
 
     <!-- ANALYTICS -->
-    <div class="section-title">
-        Analytics Reports
-    </div>
+<div class="section-title">
+    Business Reports
+</div>
 
-    <div class="report-grid">
+<div class="report-grid">
 
-        <a href="/admin/reports/daily">
-            <div class="report-card">
-                <div class="card-icon">📅</div>
-                <h3>Daily Sales Report</h3>
-                <p>Track today's transactions, revenue and sales activity.</p>
-                <span class="badge-link">Open Report</span>
-            </div>
-        </a>
+    <a href="/admin/reports/daily">
+        <div class="report-card">
 
-        <a href="/admin/reports/filtered">
-            <div class="report-card">
-                <div class="card-icon">📊</div>
-                <h3>Custom Date Report</h3>
-                <p>Analyze sales between any selected start and end dates.</p>
-                <span class="badge-link">Filter Data</span>
-            </div>
-        </a>
+            <div class="card-icon">📅</div>
 
-        <a href="/admin/reports/profit">
-            <div class="report-card">
-                <div class="card-icon">💰</div>
-                <h3>Profit Analysis</h3>
-                <p>Review revenue, expenses and net business profit.</p>
-                <span class="badge-link">View Profit</span>
-            </div>
-        </a>
+            <h3>
+                Daily Report
+            </h3>
 
-        <a href="/admin/reports/top-products">
-            <div class="report-card">
-                <div class="card-icon">🏆</div>
-                <h3>Top Selling Products</h3>
-                <p>Identify products generating the highest sales volume.</p>
-                <span class="badge-link">View Ranking</span>
-            </div>
-        </a>
+            <p>
+                View complete daily business activities including sales,
+                revenue, new products added, stock increases,
+                stock decreases and inventory changes.
+            </p>
 
-    </div>
+            <span class="badge-link">
+                Open Daily Report
+            </span>
+
+        </div>
+    </a>
+
+
+    <a href="/admin/reports/filtered">
+        <div class="report-card">
+
+            <div class="card-icon">📊</div>
+
+            <h3>
+                Custom Date Report
+            </h3>
+
+            <p>
+                Analyze sales and inventory activities between
+                selected dates for business review.
+            </p>
+
+            <span class="badge-link">
+                Filter Data
+            </span>
+
+        </div>
+    </a>
+
+
+    <a href="/admin/reports/profit">
+        <div class="report-card">
+
+            <div class="card-icon">💰</div>
+
+            <h3>
+                Profit Analysis
+            </h3>
+
+            <p>
+                Monitor revenue, product costs, profit margins
+                and overall business performance.
+            </p>
+
+            <span class="badge-link">
+                View Profit
+            </span>
+
+        </div>
+    </a>
+
+
+    <a href="/admin/reports/top-products">
+        <div class="report-card">
+
+            <div class="card-icon">🏆</div>
+
+            <h3>
+                Top Selling Products
+            </h3>
+
+            <p>
+                Identify products with highest sales quantity
+                and revenue contribution.
+            </p>
+
+            <span class="badge-link">
+                View Ranking
+            </span>
+
+        </div>
+    </a>
+
+
+    <a href="/admin/inventory">
+        <div class="report-card">
+
+            <div class="card-icon">📦</div>
+
+            <h3>
+                Inventory Report
+            </h3>
+
+            <p>
+                Track current stock levels, low stock products,
+                out of stock products and inventory movement.
+            </p>
+
+            <span class="badge-link">
+                View Inventory
+            </span>
+
+        </div>
+    </a>
+
+
+</div>
+
+    
 
     <!-- EXPORTS -->
     <div class="export-section">

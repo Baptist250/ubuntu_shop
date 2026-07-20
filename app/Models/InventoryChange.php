@@ -33,7 +33,10 @@ class InventoryChange extends Model
     {
         return match ($this->type) {
             'sold' => 'Sold',
+            'sale' => 'Sale',
             'increase' => 'Increase',
+            'stock_in' => 'Stock In',
+            'stock_out' => 'Stock Out',
             default => ucfirst($this->type),
         };
     }
