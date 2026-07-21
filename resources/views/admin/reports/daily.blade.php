@@ -3,197 +3,804 @@
 @section('content')
 
 <style>
-    body {
-        background-color: #0f0f0f;
-        color: #ffffff;
-    }
 
-    .report-wrapper {
-        padding: 20px;
-    }
-
-    .report-card {
-        background: #111827;
-        border: 1px solid #1f2937;
-        border-radius: 12px;
-        padding: 20px;
-    }
-
-    .report-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .report-title {
-        font-size: 22px;
-        font-weight: bold;
-    }
-    .btn-back {
-    background: #1f2937;
-    color: #ffffff;
-    padding: 10px 14px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    border: 1px solid #374151;
-    transition: 0.2s;
+body{
+    background:#0f0f0f;
+    color:#fff;
 }
 
-.btn-back:hover {
-    background: #16a34a;
-    transform: translateY(-1px);
+.report-wrapper{
+    padding:20px;
 }
 
-    .btn-export {
-        background: #22c55e;
-        color: black;
-        padding: 10px 14px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+.report-card{
+    background:#111827;
+    border:1px solid #1f2937;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:25px;
+}
 
-    .btn-export:hover {
-        background: #16a34a;
-        color: white;
-    }
 
-    .total-box {
-        background: #0b1220;
-        border: 1px solid #1f2937;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        font-size: 18px;
-    }
+.report-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: #0f0f0f;
-    }
 
-    table thead {
-        background: #111827;
-    }
+.report-title{
+    font-size:25px;
+    font-weight:bold;
+}
 
-    table th, table td {
-        padding: 12px;
-        border: 1px solid #1f2937;
-        text-align: left;
-    }
 
-    table tbody tr:hover {
-        background: #111827;
-    }
+.btn{
+    padding:10px 15px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+}
 
-    .empty {
-        text-align: center;
-        color: #9ca3af;
-        padding: 20px;
-    }
+
+.btn-back{
+    background:#374151;
+    color:white;
+}
+
+
+.btn-export{
+    background:#22c55e;
+    color:black;
+}
+
+
+
+.summary-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-top:20px;
+
+}
+
+
+.summary-box{
+
+    background:#0b1220;
+    border:1px solid #1f2937;
+    border-radius:10px;
+    padding:15px;
+
+}
+
+
+.label{
+    color:#9ca3af;
+    font-size:13px;
+}
+
+
+.value{
+
+    font-size:25px;
+    font-weight:bold;
+    margin-top:8px;
+
+}
+
+
+
+.section-title{
+
+    margin:25px 0 15px;
+    font-size:20px;
+    font-weight:bold;
+
+}
+
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+
+thead{
+
+    background:#0b1220;
+
+}
+
+
+
+th,td{
+
+    padding:12px;
+    border:1px solid #1f2937;
+    text-align:left;
+
+}
+
+
+
+tbody tr:hover{
+
+    background:#172033;
+
+}
+
+
+
+.empty{
+
+    text-align:center;
+    color:#9ca3af;
+    padding:20px;
+
+}
+
+
+.badge{
+
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+
+.green{
+
+    background:#166534;
+    color:#bbf7d0;
+
+}
+
+
+.red{
+
+    background:#991b1b;
+    color:#fecaca;
+
+}
+
+
 </style>
+
 
 <div class="report-wrapper">
 
-    <div class="report-card">
 
-        <!-- HEADER -->
-        <div class="report-header">
+<div class="report-card">
 
-    <div style="display:flex; align-items:center; gap:12px;">
-        <a href="/admin/reports" class="btn-back">
-            ← Back
-        </a>
 
-        <div class="report-title">
-            Daily Audit Report
-        </div>
-    </div>
+<div class="report-header">
 
-    <a href="/admin/reports/daily/export" class="btn-export">
-        Export PDF
-    </a>
+<div>
+
+<a href="/admin/reports" class="btn btn-back">
+← Back
+</a>
+
+
+<h2 class="report-title">
+Daily Business Report
+</h2>
+
+
+<p style="color:#9ca3af;">
+Complete daily sales and inventory activity
+</p>
+
+
+</div>
+
+
+
+<a href="/admin/reports/daily/export" class="btn btn-export">
+Export PDF
+</a>
+
 
 </div>
 
-        <!-- TOTAL -->
-        <div class="total-box">
-            <strong>Total Revenue:</strong>
-            {{ number_format($total) }} RWF
-        </div>
 
-        <!-- TABLE -->
-        <h3 style="margin-top: 20px;">Sales Entries</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sale ID</th>
-                    <th>Item</th>
-                    <th>Qty</th>
-                    <th>Unit Price</th>
-                    <th>Total</th>
-                    <th>Cashier</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($sales as $sale)
-                    @foreach($sale->items as $item)
-                        <tr>
-                            <td>#{{ $sale->id }}</td>
-                            <td>{{ $item->product->name ?? 'Deleted Product' }}</td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>{{ number_format($item->price) }} RWF</td>
-                            <td>{{ number_format($item->price * $item->quantity) }} RWF</td>
-                            <td>{{ $sale->cashier->name ?? 'Admin' }}</td>
-                            <td>{{ $sale->created_at->format('Y-m-d H:i') }}</td>
-                        </tr>
-                    @endforeach
-                @empty
-                    <tr>
-                        <td colspan="7" class="empty">No sales found for today</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
 
-        <h3 style="margin-top: 20px;">Inventory Actions</h3>
-        @if($inventoryChanges->isEmpty())
-            <div class="empty">No inventory actions recorded today.</div>
-        @else
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Type</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>By</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($inventoryChanges as $change)
-                        <tr>
-                            <td>{{ optional($change->product)->name ?? 'Deleted Product' }}</td>
-                            <td>{{ $change->type_label }}</td>
-                            <td><strong>Qty</strong></td>
-                            <td>{{ $change->old_quantity }} → {{ $change->new_quantity }}</td>
 
-                            <td>{{ optional($change->user)->name ?? 'System' }}</td>
-                            <td>{{ $change->created_at->format('Y-m-d H:i') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
 
-    </div>
+<!-- SUMMARY -->
+
+<div class="summary-grid">
+
+
+<div class="summary-box">
+
+<div class="label">
+Today's Revenue
+</div>
+
+<div class="value">
+{{number_format($total)}} RWF
+</div>
 
 </div>
+
+
+
+<div class="summary-box">
+
+<div class="label">
+Number Of Sales
+</div>
+
+<div class="value">
+{{count($sales)}}
+</div>
+
+</div>
+
+
+
+<div class="summary-box">
+
+<div class="label">
+New Products
+</div>
+
+<div class="value">
+{{count($newProducts)}}
+</div>
+
+</div>
+
+
+
+<div class="summary-box">
+
+<div class="label">
+Inventory Changes
+</div>
+
+<div class="value">
+{{count($inventoryChanges)}}
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<!-- SALES -->
+
+<h3 class="section-title">
+🛒 Sales Transactions
+</h3>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Sale ID</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+<th>Cashier</th>
+<th>Time</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+@forelse($sales as $sale)
+
+
+@foreach($sale->items as $item)
+
+
+<tr>
+
+
+<td>
+#{{$sale->id}}
+</td>
+
+
+<td>
+{{$item->product->name ?? 'Deleted Product'}}
+</td>
+
+
+<td>
+{{$item->quantity}}
+</td>
+
+
+<td>
+{{number_format($item->price)}} RWF
+</td>
+
+
+<td>
+{{number_format($item->price*$item->quantity)}} RWF
+</td>
+
+
+<td>
+{{$sale->cashier->name ?? 'Admin'}}
+</td>
+
+
+<td>
+{{$sale->created_at->format('H:i')}}
+</td>
+
+
+</tr>
+
+
+@endforeach
+
+
+@empty
+
+<tr>
+<td colspan="7" class="empty">
+No sales today
+</td>
+</tr>
+
+@endforelse
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+<!-- NEW PRODUCTS -->
+
+<h3 class="section-title">
+📦 New Products Added
+</h3>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+<th>Brand</th>
+<th>Quantity</th>
+<th>Added</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+@forelse($newProducts as $product)
+
+
+<tr>
+
+<td>
+{{$product->name}}
+</td>
+
+
+<td>
+{{$product->brand}}
+</td>
+
+
+<td>
+{{$product->quantity}}
+</td>
+
+
+<td>
+{{$product->created_at->format('H:i')}}
+</td>
+
+
+</tr>
+
+
+@empty
+
+
+<tr>
+<td colspan="4" class="empty">
+No new products added today
+</td>
+</tr>
+
+
+@endforelse
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+
+<!-- STOCK IN -->
+
+
+<h3 class="section-title">
+🟢 Stock Increased
+</h3>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+<th>Old Qty</th>
+<th>New Qty</th>
+<th>Changed By</th>
+<th>Time</th>
+
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+@forelse($stockIn as $item)
+
+
+<tr>
+
+
+<td>
+{{$item->product->name ?? 'Deleted Product'}}
+</td>
+
+
+<td>
+{{$item->old_quantity}}
+</td>
+
+
+<td>
+{{$item->new_quantity}}
+</td>
+
+
+<td>
+{{$item->user->name ?? 'System'}}
+</td>
+
+
+<td>
+{{$item->created_at->format('H:i')}}
+</td>
+
+
+</tr>
+
+
+@empty
+
+<tr>
+<td colspan="5" class="empty">
+No stock increased today
+</td>
+</tr>
+
+
+@endforelse
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+
+<!-- STOCK OUT -->
+
+
+<h3 class="section-title">
+🔴 Stock Decreased
+</h3>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+<th>Old Qty</th>
+<th>New Qty</th>
+<th>Changed By</th>
+<th>Time</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+@forelse($stockOut as $item)
+
+
+<tr>
+
+
+<td>
+{{$item->product->name ?? 'Deleted Product'}}
+</td>
+
+
+<td>
+{{$item->old_quantity}}
+</td>
+
+
+<td>
+{{$item->new_quantity}}
+</td>
+
+
+<td>
+{{$item->user->name ?? 'System'}}
+</td>
+
+
+<td>
+{{$item->created_at->format('H:i')}}
+</td>
+
+
+</tr>
+
+
+@empty
+
+
+<tr>
+
+<td colspan="5" class="empty">
+No stock decreased today
+</td>
+
+</tr>
+
+
+@endforelse
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+
+<!-- LOW STOCK -->
+
+<h3 class="section-title">
+⚠ Low Stock Products
+</h3>
+
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+<th>Available</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+@forelse($lowStockProducts as $product)
+
+
+<tr>
+
+
+<td>
+{{$product->name}}
+</td>
+
+
+<td>
+{{$product->quantity}}
+</td>
+
+
+<td>
+
+<span class="badge green">
+Low Stock
+</span>
+
+
+</td>
+
+
+</tr>
+
+
+
+@empty
+
+
+<tr>
+
+<td colspan="3" class="empty">
+No low stock products
+</td>
+
+</tr>
+
+
+@endforelse
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+
+
+
+<!-- OUT OF STOCK -->
+
+
+<h3 class="section-title">
+❌ Out Of Stock Products
+</h3>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+<th>Status</th>
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+@forelse($outOfStockProducts as $product)
+
+
+<tr>
+
+<td>
+{{$product->name}}
+</td>
+
+
+<td>
+
+<span class="badge red">
+Out Of Stock
+</span>
+
+</td>
+
+
+</tr>
+
+
+
+@empty
+
+
+<tr>
+
+<td colspan="2" class="empty">
+No out of stock products
+</td>
+
+</tr>
+
+
+@endforelse
+
+
+</tbody>
+
+
+</table>
+
+
+
+
+</div>
+
+
+</div>
+
 
 @endsection

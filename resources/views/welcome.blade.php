@@ -641,7 +641,7 @@
         </div>
         <a
         class="whatsapp-btn"
-        href="https://wa.me/250791108268?text=Hello%20Ubuntu%20Shop,%20I%20am%20interested%20in%20{{ urlencode($product->name) }}"
+        href="https://wa.me/250789667181?text=Hello%20Ubuntu%20Shop,%20I%20am%20interested%20in%20{{ urlencode($product->name) }}"
         target="_blank">
 
         <i class="fab fa-whatsapp"></i>

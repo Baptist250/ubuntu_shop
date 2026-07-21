@@ -143,9 +143,8 @@
                 Total Revenue
             </div>
 
-            <div class="stat-value"
-               style="color: {{ $profit >= 0 ? '#22c55e' : '#ef4444' }}">
-               {{ number_format($profit) }} RWF
+            <div class="stat-value">
+               {{ number_format($totalRevenue) }} RWF
             </div>
         </div>
 

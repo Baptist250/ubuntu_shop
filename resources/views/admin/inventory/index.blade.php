@@ -162,7 +162,7 @@ tr:hover {
                         <td>
                             @php $last = $product->inventoryChanges()->latest()->first(); @endphp
                             @if($last)
-                                @php $sign = $last->change > 0 ? '+' : ''; @endphp
+                                @php $sign = $last->change > 0 ? '' : ''; @endphp
                                 <div style="font-size:13px;">
                                     <strong>{{ $sign . $last->change }}</strong>
                                     &nbsp;({{ $last->type_label }})

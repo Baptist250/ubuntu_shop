@@ -61,10 +61,13 @@ class POSController extends Controller
                 'old_quantity' => $oldQty,
                 'new_quantity' => $newQty,
                 'change' => $item['qty'],
-                'type' => 'sold',
+                'type' => 'sale',
                 'note' => 'POS checkout',
             ]);
         }
+
+        // Generate a unique invoice number
+        $invoiceNumber = 'INV-' . strtoupper(uniqid());
 
         $sale = Sale::create([
             'total_amount' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
@@ -72,6 +75,8 @@ class POSController extends Controller
             'customer_phone' => $request->input('customer_phone'),
             'customer_email' => $request->input('customer_email'),
             'customer_address' => $request->input('customer_address'),
+            'cashier_id' => $request->user()?->id,
+            'invoice_number' => $invoiceNumber,
         ]);
 
         // Create SaleItem records for each item in cart

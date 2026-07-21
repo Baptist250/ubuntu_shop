@@ -11,9 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'name',
         'email',
@@ -22,9 +19,6 @@ class User extends Authenticatable
         'is_admin',
     ];
 
-    /**
-     * Accessor for profile photo URL.
-     */
     public function getProfilePhotoUrlAttribute(): ?string
     {
         return $this->profile_photo_path
@@ -32,17 +26,11 @@ class User extends Authenticatable
             : null;
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     */
     protected function casts(): array
     {
         return [
