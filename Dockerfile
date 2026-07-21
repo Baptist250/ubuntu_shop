@@ -20,6 +20,12 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN npm install && npm run build
 
+# Configure Apache for Laravel public folder
+RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf
+
+RUN a2enmod rewrite
+
 RUN php artisan storage:link || true
 
 RUN chown -R www-data:www-data storage bootstrap/cache
