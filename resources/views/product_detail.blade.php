@@ -18,6 +18,7 @@
 
         .container {
             max-width: 800px;
+            width: calc(100% - 30px);
             margin: 30px auto;
             background: #111827;
             padding: 20px;
@@ -28,6 +29,7 @@
 
         h1 {
             margin-top: 15px;
+            word-break: break-word;
         }
 
 
@@ -45,6 +47,7 @@
             margin-top: 15px;
             color: #d1d5db;
             line-height: 1.5;
+            word-break: break-word;
         }
 
 
@@ -63,6 +66,8 @@
             border-radius: 10px;
 
             border: 1px solid #1f2937;
+
+            max-width:100%;
 
         }
 
@@ -95,6 +100,8 @@
 
             transition: 0.2s;
 
+            text-align:center;
+
         }
 
 
@@ -121,15 +128,104 @@
 
 
 
+
+
+        /* MOBILE RESPONSIVE ONLY */
+
         @media(max-width:600px){
+
 
             .container{
 
-                margin:15px;
+                width:calc(100% - 20px);
+
+                margin:10px auto;
 
                 padding:15px;
 
+                border-radius:10px;
+
             }
+
+
+
+            .product-image{
+
+                width:120px;
+
+                height:120px;
+
+            }
+
+
+
+            h1{
+
+                font-size:24px;
+
+                text-align:center;
+
+            }
+
+
+
+            .brand,
+            .stock{
+
+                font-size:15px;
+
+            }
+
+
+
+            .desc{
+
+                font-size:15px;
+
+                line-height:1.6;
+
+            }
+
+
+
+            .whatsapp-btn{
+
+                width:100%;
+
+                padding:14px;
+
+                font-size:15px;
+
+            }
+
+
+
+            .back{
+
+                display:block;
+
+                text-align:center;
+
+                margin-top:18px;
+
+            }
+
+
+        }
+
+
+
+
+
+        @media(max-width:360px){
+
+
+            .container{
+
+                padding:12px;
+
+            }
+
 
 
             .product-image{
@@ -139,6 +235,23 @@
                 height:100px;
 
             }
+
+
+
+            h1{
+
+                font-size:21px;
+
+            }
+
+
+
+            .whatsapp-btn{
+
+                font-size:14px;
+
+            }
+
 
         }
 
@@ -182,6 +295,8 @@
         {{ $product->brand }}
 
     </p>
+
+
     <p class="stock">
 
         Stock available: 
