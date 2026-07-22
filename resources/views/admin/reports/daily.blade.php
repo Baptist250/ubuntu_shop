@@ -9,53 +9,72 @@ body{
     color:#fff;
 }
 
+
 .report-wrapper{
     padding:20px;
 }
 
+
 .report-card{
+
     background:#111827;
     border:1px solid #1f2937;
     border-radius:14px;
     padding:20px;
     margin-bottom:25px;
+
 }
 
 
 .report-header{
+
     display:flex;
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
     gap:15px;
+
 }
 
 
 .report-title{
+
     font-size:25px;
     font-weight:bold;
+    margin-top:15px;
+
 }
 
 
 .btn{
+
     padding:10px 15px;
     border-radius:8px;
     text-decoration:none;
     font-weight:bold;
+    display:inline-block;
+
 }
 
 
 .btn-back{
+
     background:#374151;
     color:white;
+
 }
 
 
 .btn-export{
+
     background:#22c55e;
     color:black;
+
 }
 
+
+
+/* SUMMARY */
 
 
 .summary-grid{
@@ -79,8 +98,10 @@ body{
 
 
 .label{
+
     color:#9ca3af;
     font-size:13px;
+
 }
 
 
@@ -94,6 +115,7 @@ body{
 
 
 
+
 .section-title{
 
     margin:25px 0 15px;
@@ -104,9 +126,22 @@ body{
 
 
 
+/* TABLE RESPONSIVE */
+
+.table-container{
+
+    width:100%;
+    overflow-x:auto;
+    border-radius:10px;
+
+}
+
+
+
 table{
 
     width:100%;
+    min-width:700px;
     border-collapse:collapse;
 
 }
@@ -126,6 +161,7 @@ th,td{
     padding:12px;
     border:1px solid #1f2937;
     text-align:left;
+    white-space:nowrap;
 
 }
 
@@ -148,11 +184,13 @@ tbody tr:hover{
 }
 
 
+
 .badge{
 
     padding:5px 10px;
     border-radius:20px;
     font-size:12px;
+
 }
 
 
@@ -171,6 +209,171 @@ tbody tr:hover{
 
 }
 
+
+
+
+
+/* MOBILE */
+
+
+@media(max-width:768px){
+
+
+.report-wrapper{
+
+    padding:10px;
+
+}
+
+
+
+.report-card{
+
+    padding:15px;
+    border-radius:12px;
+
+}
+
+
+
+.report-header{
+
+    flex-direction:column;
+    align-items:stretch;
+
+}
+
+
+
+.report-header .btn-export{
+
+    width:100%;
+    text-align:center;
+
+}
+
+
+
+.report-title{
+
+    font-size:21px;
+
+}
+
+
+
+.report-header p{
+
+    font-size:13px;
+
+}
+
+
+
+/* SUMMARY MOBILE */
+
+
+.summary-grid{
+
+    grid-template-columns:1fr;
+    gap:12px;
+
+}
+
+
+
+.summary-box{
+
+    padding:14px;
+
+}
+
+
+
+.value{
+
+    font-size:22px;
+
+}
+
+
+
+/* TABLES */
+
+
+.table-container{
+
+    margin-bottom:10px;
+
+}
+
+
+
+.section-title{
+
+    font-size:18px;
+    margin-top:25px;
+
+}
+
+
+table{
+
+    min-width:650px;
+
+}
+
+
+th,td{
+
+    padding:10px;
+    font-size:13px;
+
+}
+
+
+}
+
+
+
+/* SMALL MOBILE */
+
+
+@media(max-width:400px){
+
+
+.report-title{
+
+    font-size:19px;
+
+}
+
+
+
+.btn{
+
+    width:100%;
+    text-align:center;
+
+}
+
+
+
+.section-title{
+
+    font-size:16px;
+
+}
+
+
+.value{
+
+    font-size:20px;
+
+}
+
+
+}
 
 </style>
 
@@ -289,6 +492,8 @@ Inventory Changes
 </h3>
 
 
+<div class="table-container">
+
 <table>
 
 <thead>
@@ -376,6 +581,7 @@ No sales today
 
 
 </table>
+</div>
 
 
 
