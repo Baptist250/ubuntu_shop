@@ -10,7 +10,6 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
 <style>
 
 *{
@@ -25,7 +24,6 @@ body{
     background:#0f0f0f;
     color:white;
     font-family:'Segoe UI',sans-serif;
-    overflow-x:hidden;
 
 }
 
@@ -37,13 +35,15 @@ body{
 
     background:#0f0f0f;
     border-bottom:1px solid #1e293b;
+
     padding:18px 25px;
+
     position:sticky;
     top:0;
+
     z-index:1000;
 
 }
-
 
 
 .header-container{
@@ -51,7 +51,6 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:20px;
 
 }
 
@@ -71,40 +70,49 @@ body{
 
 .logo-img{
 
-    width:55px;
-    height:55px;
-    border-radius:15px;
+    width:52px;
+    height:52px;
+
+    border-radius:14px;
+
     object-fit:cover;
 
 }
 
 
+
 .brand-title{
 
     font-size:25px;
+
     font-weight:800;
+
     margin:0;
 
 }
 
 
+
 .brand-sub{
 
     color:#94a3b8;
+
     font-size:13px;
 
 }
 
 
 
-/* RIGHT AREA */
+/* RIGHT */
 
 
-.header-actions{
+.header-right{
 
     display:flex;
+
     align-items:center;
-    gap:15px;
+
+    gap:20px;
 
 }
 
@@ -112,74 +120,141 @@ body{
 
 .search-box{
 
-    width:280px;
+    width:300px;
+
     background:#111827;
+
     border:1px solid #334155;
+
     color:white;
 
 }
 
 
+
 .search-box:focus{
 
     background:#111827;
+
     color:white;
+
     border-color:#22c55e;
+
     box-shadow:none;
 
 }
 
 
 
-.user-card{
+/* PROFILE ICON */
 
-    display:flex;
-    align-items:center;
-    gap:10px;
 
-    background:#111827;
-    border:1px solid #334155;
+.profile-wrapper{
 
-    padding:8px 14px;
-    border-radius:14px;
+    position:relative;
 
 }
 
 
 
-.user-avatar{
+.profile-icon{
 
     width:45px;
+
     height:45px;
 
     border-radius:50%;
 
-    background:#0f172a;
-    color:#22c55e;
+    background:#111827;
+
+    border:1px solid #334155;
 
     display:flex;
-    justify-content:center;
+
     align-items:center;
 
-    font-weight:bold;
+    justify-content:center;
+
+    cursor:pointer;
+
+    color:#22c55e;
+
+    font-size:20px;
 
 }
 
 
 
-.user-name{
+.profile-icon:hover{
+
+    background:#1e293b;
+
+}
+
+
+
+/* DROPDOWN */
+
+
+.profile-menu{
+
+    position:absolute;
+
+    right:0;
+
+    top:55px;
+
+    width:230px;
+
+    background:#111827;
+
+    border:1px solid #334155;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    display:none;
+
+}
+
+
+
+.profile-wrapper:hover .profile-menu{
+
+    display:block;
+
+}
+
+
+
+.profile-name{
 
     font-weight:700;
-    font-size:14px;
+
+    color:white;
 
 }
+
 
 
 .profile-link{
 
-    color:#94a3b8;
+    color:#cbd5e1;
+
     text-decoration:none;
-    font-size:13px;
+
+    display:block;
+
+    padding:8px 0;
+
+}
+
+
+
+.profile-link:hover{
+
+    color:#22c55e;
 
 }
 
@@ -187,10 +262,11 @@ body{
 
 .logout-btn{
 
-    border-radius:10px;
+    width:100%;
+
+    margin-top:10px;
 
 }
-
 
 
 
@@ -203,13 +279,9 @@ body{
 
     gap:5px;
 
-    background:#0f0f0f;
+    overflow-x:auto;
 
     border-bottom:1px solid #1e293b;
-
-    padding:0 20px;
-
-    overflow-x:auto;
 
 }
 
@@ -217,15 +289,13 @@ body{
 
 .menu-link{
 
+    padding:16px 20px;
+
     color:#cbd5e1;
 
     text-decoration:none;
 
-    padding:16px 20px;
-
     white-space:nowrap;
-
-    border-bottom:3px solid transparent;
 
 }
 
@@ -234,6 +304,7 @@ body{
 .menu-link:hover{
 
     color:#22c55e;
+
     background:#111827;
 
 }
@@ -244,12 +315,9 @@ body{
 
     color:#22c55e!important;
 
-    border-bottom-color:#22c55e;
-
-    background:#111827;
+    border-bottom:3px solid #22c55e;
 
 }
-
 
 
 
@@ -264,79 +332,22 @@ body{
 
 
 
-
-
 /* MOBILE */
 
+
 @media(max-width:768px){
-
-
-    .top-header{
-
-        padding:15px;
-
-    }
-
 
 
     .header-container{
 
         flex-direction:column;
 
-        align-items:stretch;
+        gap:15px;
 
     }
-
 
 
     .brand-area{
-
-        flex-direction:column;
-
-        text-align:center;
-
-    }
-
-
-
-    .logo-img{
-
-        width:70px;
-        height:70px;
-
-    }
-
-
-
-    .brand-title{
-
-        font-size:22px;
-
-    }
-
-
-
-    .header-actions{
-
-        flex-direction:column;
-
-        width:100%;
-
-    }
-
-
-
-    .search-box{
-
-        width:100%;
-
-        height:45px;
-
-    }
-
-
-
-    .user-card{
 
         width:100%;
 
@@ -345,20 +356,26 @@ body{
     }
 
 
-
-    .logout-btn{
+    .header-right{
 
         width:100%;
 
-        padding:12px;
+        justify-content:space-between;
+
+    }
+
+
+    .search-box{
+
+        width:85%;
 
     }
 
 
 
-    .menu-bar{
+    .profile-menu{
 
-        padding:0;
+        right:0;
 
     }
 
@@ -368,10 +385,7 @@ body{
 
         padding:14px 18px;
 
-        font-size:14px;
-
     }
-
 
 
     .page-content{
@@ -385,8 +399,8 @@ body{
 
 
 
-
 </style>
+
 
 </head>
 
@@ -401,96 +415,106 @@ body{
 <div class="header-container">
 
 
-    <!-- BRAND -->
 
-    <div class="brand-area">
+<!-- LOGO -->
 
-
-        <img src="{{ asset('images/logo.png') }}"
-             class="logo-img"
-             alt="Ubuntu Shop">
+<div class="brand-area">
 
 
-        <div>
-
-            <h4 class="brand-title">
-                Ubuntu Shop
-            </h4>
-
-            <div class="brand-sub">
-                Modern Electronics & Inventory Management
-            </div>
-
-        </div>
+<img src="{{ asset('images/logo.png') }}"
+class="logo-img"
+alt="Ubuntu Shop">
 
 
-    </div>
+<div>
+
+<h4 class="brand-title">
+Ubuntu Shop
+</h4>
 
 
+<div class="brand-sub">
+Modern Electronics & Inventory Management
+</div>
 
 
-    <!-- ACTIONS -->
+</div>
 
 
-    <div class="header-actions">
-
-
-        <input type="text"
-               class="form-control search-box"
-               placeholder="Search products...">
-
-
-
-        <div class="user-card">
-
-
-            <div class="user-avatar">
-
-                {{ strtoupper(substr(auth()->user()->name ?? 'A',0,1)) }}
-
-            </div>
-
-
-            <div>
-
-                <div class="user-name">
-
-                    {{ auth()->user()->name ?? 'Admin' }}
-
-                </div>
-
-
-                <a href="{{ route('profile.edit') }}"
-                   class="profile-link">
-
-                    Account Settings
-
-                </a>
-
-
-            </div>
-
-
-        </div>
+</div>
 
 
 
 
-        <form method="POST" action="/logout">
-
-            @csrf
-
-            <button class="btn btn-outline-danger logout-btn">
-
-                Logout
-
-            </button>
+<!-- RIGHT AREA -->
 
 
-        </form>
+<div class="header-right">
 
 
-    </div>
+<input type="text"
+class="form-control search-box"
+placeholder="Search products...">
+
+
+
+<!-- PROFILE -->
+
+
+<div class="profile-wrapper">
+
+
+<div class="profile-icon">
+
+👤
+
+</div>
+
+
+
+<div class="profile-menu">
+
+
+<div class="profile-name">
+
+{{ auth()->user()->name ?? 'Admin' }}
+
+</div>
+
+
+
+<a href="{{ route('profile.edit') }}"
+class="profile-link">
+
+⚙ Account Settings
+
+</a>
+
+
+
+<form method="POST" action="/logout">
+
+@csrf
+
+<button class="btn btn-danger logout-btn">
+
+Logout
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
 
 
 </div>
@@ -501,36 +525,57 @@ body{
 
 
 
+<!-- NAVIGATION -->
+
+
 <nav class="menu-bar">
 
 
-<a href="/admin" class="menu-link">
+<a href="/admin"
+class="menu-link">
+
 Dashboard
+
 </a>
 
 
-<a href="/admin/pos" class="menu-link">
+<a href="/admin/pos"
+class="menu-link">
+
 POS
+
 </a>
 
 
-<a href="/admin/products" class="menu-link">
+<a href="/admin/products"
+class="menu-link">
+
 Products
+
 </a>
 
 
-<a href="/admin/inventory" class="menu-link">
+<a href="/admin/inventory"
+class="menu-link">
+
 Inventory
+
 </a>
 
 
-<a href="/admin/sales" class="menu-link">
+<a href="/admin/sales"
+class="menu-link">
+
 Sales
+
 </a>
 
 
-<a href="/admin/reports" class="menu-link">
+<a href="/admin/reports"
+class="menu-link">
+
 Reports
+
 </a>
 
 
@@ -548,6 +593,11 @@ Reports
 
 
 @stack('scripts')
+
+
+<script>
+
+</script>
 
 
 </body>
