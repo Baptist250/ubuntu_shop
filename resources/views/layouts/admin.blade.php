@@ -10,6 +10,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
 <style>
 
 *{
@@ -24,9 +25,9 @@ body{
     background:#0f0f0f;
     color:white;
     font-family:'Segoe UI',sans-serif;
+    overflow-x:hidden;
 
 }
-
 
 
 /* HEADER */
@@ -35,15 +36,10 @@ body{
 
     background:#0f0f0f;
     border-bottom:1px solid #1e293b;
-
     padding:18px 25px;
 
-    position:sticky;
-    top:0;
-
-    z-index:1000;
-
 }
+
 
 
 .header-container{
@@ -53,7 +49,6 @@ body{
     align-items:center;
 
 }
-
 
 
 /* BRAND */
@@ -70,86 +65,37 @@ body{
 
 .logo-img{
 
-    width:52px;
-    height:52px;
-
-    border-radius:14px;
-
+    width:55px;
+    height:55px;
+    border-radius:15px;
     object-fit:cover;
 
 }
 
 
-
 .brand-title{
 
     font-size:25px;
-
     font-weight:800;
-
     margin:0;
 
 }
 
 
-
 .brand-sub{
 
     color:#94a3b8;
-
     font-size:13px;
 
 }
 
 
 
-/* RIGHT */
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-}
-
-
-
-.search-box{
-
-    width:300px;
-
-    background:#111827;
-
-    border:1px solid #334155;
-
-    color:white;
-
-}
-
-
-
-.search-box:focus{
-
-    background:#111827;
-
-    color:white;
-
-    border-color:#22c55e;
-
-    box-shadow:none;
-
-}
-
-
 
 /* PROFILE ICON */
 
 
-.profile-wrapper{
+.profile-dropdown{
 
     position:relative;
 
@@ -159,9 +105,8 @@ body{
 
 .profile-icon{
 
-    width:45px;
-
-    height:45px;
+    width:48px;
+    height:48px;
 
     border-radius:50%;
 
@@ -170,30 +115,17 @@ body{
     border:1px solid #334155;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    cursor:pointer;
 
     color:#22c55e;
 
     font-size:20px;
 
-}
-
-
-
-.profile-icon:hover{
-
-    background:#1e293b;
+    cursor:pointer;
 
 }
 
-
-
-/* DROPDOWN */
 
 
 .profile-menu{
@@ -202,9 +134,9 @@ body{
 
     right:0;
 
-    top:55px;
+    top:60px;
 
-    width:230px;
+    width:220px;
 
     background:#111827;
 
@@ -216,11 +148,13 @@ body{
 
     display:none;
 
+    z-index:2000;
+
 }
 
 
 
-.profile-wrapper:hover .profile-menu{
+.profile-dropdown:hover .profile-menu{
 
     display:block;
 
@@ -230,9 +164,9 @@ body{
 
 .profile-name{
 
-    font-weight:700;
-
     color:white;
+
+    font-weight:700;
 
 }
 
@@ -246,7 +180,7 @@ body{
 
     display:block;
 
-    padding:8px 0;
+    padding:10px 0;
 
 }
 
@@ -264,8 +198,6 @@ body{
 
     width:100%;
 
-    margin-top:10px;
-
 }
 
 
@@ -279,9 +211,11 @@ body{
 
     gap:5px;
 
-    overflow-x:auto;
+    padding:0 20px;
 
     border-bottom:1px solid #1e293b;
+
+    overflow-x:auto;
 
 }
 
@@ -289,11 +223,11 @@ body{
 
 .menu-link{
 
-    padding:16px 20px;
-
     color:#cbd5e1;
 
     text-decoration:none;
+
+    padding:16px 20px;
 
     white-space:nowrap;
 
@@ -332,67 +266,86 @@ body{
 
 
 
+
 /* MOBILE */
 
 
 @media(max-width:768px){
 
 
-    .header-container{
+.top-header{
 
-        flex-direction:column;
+    padding:15px;
 
-        gap:15px;
-
-    }
+}
 
 
-    .brand-area{
+.header-container{
 
-        width:100%;
+    flex-direction:row;
 
-        justify-content:center;
-
-    }
+}
 
 
-    .header-right{
+.brand-area{
 
-        width:100%;
+    gap:10px;
 
-        justify-content:space-between;
-
-    }
-
-
-    .search-box{
-
-        width:85%;
-
-    }
+}
 
 
 
-    .profile-menu{
+.logo-img{
 
-        right:0;
+    width:45px;
+    height:45px;
 
-    }
-
-
-
-    .menu-link{
-
-        padding:14px 18px;
-
-    }
+}
 
 
-    .page-content{
+.brand-title{
 
-        padding:15px;
+    font-size:19px;
 
-    }
+}
+
+
+.brand-sub{
+
+    display:none;
+
+}
+
+
+.profile-icon{
+
+    width:42px;
+    height:42px;
+
+}
+
+
+.menu-bar{
+
+    padding:0;
+
+}
+
+
+.menu-link{
+
+    padding:14px 16px;
+
+    font-size:14px;
+
+}
+
+
+.page-content{
+
+    padding:15px;
+
+}
 
 
 }
@@ -400,7 +353,6 @@ body{
 
 
 </style>
-
 
 </head>
 
@@ -414,9 +366,6 @@ body{
 
 <div class="header-container">
 
-
-
-<!-- LOGO -->
 
 <div class="brand-area">
 
@@ -446,22 +395,9 @@ Modern Electronics & Inventory Management
 
 
 
-<!-- RIGHT AREA -->
-
-
-<div class="header-right">
-
-
-<input type="text"
-class="form-control search-box"
-placeholder="Search products...">
-
-
-
 <!-- PROFILE -->
 
-
-<div class="profile-wrapper">
+<div class="profile-dropdown">
 
 
 <div class="profile-icon">
@@ -482,11 +418,13 @@ placeholder="Search products...">
 </div>
 
 
+<hr>
+
 
 <a href="{{ route('profile.edit') }}"
 class="profile-link">
 
-⚙ Account Settings
+Account Settings
 
 </a>
 
@@ -516,16 +454,10 @@ Logout
 </div>
 
 
-
-</div>
-
-
 </header>
 
 
 
-
-<!-- NAVIGATION -->
 
 
 <nav class="menu-bar">
@@ -533,49 +465,37 @@ Logout
 
 <a href="/admin"
 class="menu-link">
-
 Dashboard
-
 </a>
 
 
 <a href="/admin/pos"
 class="menu-link">
-
 POS
-
 </a>
 
 
 <a href="/admin/products"
 class="menu-link">
-
 Products
-
 </a>
 
 
 <a href="/admin/inventory"
 class="menu-link">
-
 Inventory
-
 </a>
 
 
 <a href="/admin/sales"
 class="menu-link">
-
 Sales
-
 </a>
 
 
 <a href="/admin/reports"
 class="menu-link">
-
 Reports
-
 </a>
 
 
@@ -593,11 +513,6 @@ Reports
 
 
 @stack('scripts')
-
-
-<script>
-
-</script>
 
 
 </body>
