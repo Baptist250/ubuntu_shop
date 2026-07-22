@@ -196,7 +196,7 @@
         <div class="auth-card" id="auth-card">
 
             <div class="auth-header">
-                <img src="{{ asset('images/logo.PNG') }}" alt="Logo">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo">
 
                 <h2 class="auth-title">
                     Welcome Back
