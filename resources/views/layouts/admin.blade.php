@@ -210,7 +210,7 @@
 <div class="top-header">
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
         <div class="d-flex align-items-center gap-3">
-            <img src="{{ asset('images/logo.PNG') }}"
+            <img src="{{ asset('images/logo.png') }}"
                  class="logo-img"
                  alt="Ubuntu Shop">
 
