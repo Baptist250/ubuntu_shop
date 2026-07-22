@@ -1607,7 +1607,7 @@ body{
                     </div>
                 @else
                     <a href="/login" class="cta cta-primary" role="menuitem"></a>
-                    <a href="/" class="cta cta-secondary" role="menuitem">Browse</a>
+                    
                 @endauth
                 </div>
             </div>
