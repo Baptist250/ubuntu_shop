@@ -552,7 +552,7 @@
 
         <!-- BRAND -->
         <div class="brand">
-            <img src="{{ asset('images/logo.PNG') }}" alt="Ubuntu Shop Logo">
+            <img src="{{ asset('images/logo.png') }}" alt="Ubuntu Shop Logo">
             <div class="brand-text">
                 <h1>Ubuntu Shop</h1>
                 <p>Electronics you can trust</p>
