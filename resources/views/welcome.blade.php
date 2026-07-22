@@ -210,14 +210,207 @@
         .nav-toggle.open .hamburger span:nth-child(2){ opacity: 0; }
         .nav-toggle.open .hamburger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-        @media (max-width: 768px) {
-            .nav-toggle { display: inline-flex; }
-            .nav-menu { display: none; width: 100%; gap: 8px; }
-            .nav-menu.open { display: flex; flex-direction: column; }
-            .header-content { align-items: flex-start; }
-            .hero { width: 100%; margin-top: 12px; }
-            .brand { gap: 10px; }
-        }
+        @media (max-width:768px){
+
+
+    .header{
+        padding:15px 12px;
+    }
+
+
+
+    .header-content{
+
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+
+    }
+
+
+
+    /* BRAND LEFT */
+
+    .brand{
+
+        width:auto;
+        justify-content:flex-start;
+        text-align:left;
+
+    }
+
+
+
+    .brand img{
+
+        width:45px;
+        height:45px;
+
+    }
+
+
+
+    .brand-text h1{
+
+        font-size:18px;
+
+    }
+
+
+
+    .brand-text p{
+
+        font-size:11px;
+
+    }
+
+
+
+    .trust-line{
+
+        font-size:10px;
+
+    }
+
+
+
+
+    /* HAMBURGER RIGHT */
+
+    .nav-wrapper{
+
+        width:auto;
+        margin-left:auto;
+
+        position:relative;
+
+    }
+
+
+
+    .nav-toggle{
+
+        display:flex;
+
+        margin-left:auto;
+
+        width:44px;
+        height:44px;
+
+        background:#111827;
+
+        border-radius:10px;
+
+        border:1px solid var(--border);
+
+    }
+
+
+
+
+    /* MOBILE MENU */
+
+    .nav-menu{
+
+        display:none;
+
+        position:absolute;
+
+        right:0;
+
+        top:55px;
+
+        width:240px;
+
+        background:#0b1220;
+
+        border:1px solid var(--border);
+
+        border-radius:12px;
+
+        padding:12px;
+
+        box-shadow:0 15px 40px rgba(0,0,0,.5);
+
+        z-index:999;
+
+    }
+
+
+
+    .nav-menu.open{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:8px;
+
+    }
+
+
+
+    .nav-menu a{
+
+        width:100%;
+
+        justify-content:flex-start;
+
+        padding:12px;
+
+        border-radius:8px;
+
+    }
+
+
+
+    .nav-separator{
+
+        display:none;
+
+    }
+
+
+
+    .actions{
+
+        width:100%;
+
+        justify-content:flex-start;
+
+    }
+
+
+
+    .user-menu{
+
+        width:100%;
+
+    }
+
+
+
+    .btn-primary{
+
+        width:100%;
+
+    }
+
+
+
+    .user-dropdown{
+
+        width:100%;
+
+        position:relative;
+
+        top:8px;
+
+    }
+
+
+}
 
         /* HERO */
         .hero {
